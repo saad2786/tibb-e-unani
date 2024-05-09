@@ -6,6 +6,7 @@ import Loader from "../ui/Loader";
 import { format } from "date-fns";
 const Entry = () => {
   const [entry, setEntry] = useState({});
+  const [mediciens, setMediciens] = useState([]);
   const entryId = useParams().entryId;
   const navigate = useNavigate();
   const {
@@ -17,8 +18,14 @@ const Entry = () => {
     queryFn: fetchRecords,
     onSuccess: (data) => {
       console.log(data);
-      const selectedEntry = data?.find((record) => record.rid == entryId);
+      const selectedEntry = data?.records.find(
+        (record) => record.rid == entryId,
+      );
       setEntry(selectedEntry);
+      const selectedMediciens = data?.mediciens?.filter(
+        (medicien) => medicien.rid == entryId,
+      );
+      setMediciens(selectedMediciens);
     },
     onSettled: () => {},
   });
@@ -29,7 +36,14 @@ const Entry = () => {
       <div className="w-full rounded-xl  bg-slate-300 p-4  shadow-lg ">
         <div className="px-2 py-1">
           <p className="text-sm font-light">Medicien:</p>
-          <p className="text-lg font-semibold">{entry?.medicien}</p>
+          {mediciens.map((medicien) => {
+            return (
+              <div className="flex w-full items-center justify-between">
+                <p className="text-lg font-semibold">{medicien.name}</p>
+                <p className="text-lg font-semibold">{medicien.qty}</p>
+              </div>
+            );
+          })}
         </div>
         <div className="px-2 py-1">
           <p className="text-sm font-light">Cuase:</p>

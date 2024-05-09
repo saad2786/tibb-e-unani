@@ -35,7 +35,7 @@ const Records = () => {
     queryFn: fetchRecords,
     onSuccess: (data) => {
       setSelectedRecords(() => {
-        return data?.filter((record) => {
+        return data?.records?.filter((record) => {
           return record?.mid === Number(member?.mid);
         });
       });

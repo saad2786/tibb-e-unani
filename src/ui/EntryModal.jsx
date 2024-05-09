@@ -6,14 +6,30 @@ import { addRecord } from "../services/apiRecords";
 
 const EntryModal = ({ closeModal, member, refetch }) => {
   const [progress, setProgress] = useState(false);
+  const [mediciens, setMediciens] = useState([]);
+  const [medicien, setMedicien] = useState("");
+  const [qty, setQty] = useState("");
+
   const { register, handleSubmit } = useForm();
   const mid = member.mid;
+  function addMedicien() {
+    setMediciens((prev) => {
+      const newMedicien = {
+        name: medicien,
+        quantity: qty,
+      };
+      return [...prev, newMedicien];
+    });
+    setMedicien("");
+    setQty("");
+  }
   async function onSubmit(data) {
     try {
       const response = await addRecord({
         ...data,
         growth: progress,
         mid,
+        mediciens,
       });
 
       if (!response.error) {
@@ -41,16 +57,40 @@ const EntryModal = ({ closeModal, member, refetch }) => {
           className="mt-4 w-full space-y-4 py-4"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <div className="flex flex-col items-start justify-center gap-1">
+          <div className="flex flex-col items-start justify-center gap-2 ">
             <label htmlFor="name">Mediciens:</label>
-            <input
-              type="text"
-              placeholder="Mediciens"
-              className="w-full rounded-xl border border-slate-500 p-3"
-              id="medicien"
-              {...register("medicien")}
-              required
-            />
+            <div className="flex w-full items-center justify-center gap-2">
+              <input
+                type="text"
+                placeholder="Mediciens"
+                className="w-[60%] rounded-xl border border-slate-500 p-3 "
+                value={medicien}
+                onChange={(e) => setMedicien(e.target.value)}
+              />
+              <input
+                type="text"
+                placeholder="Qty"
+                className="w-[25%] rounded-xl border border-slate-500 p-3"
+                value={qty}
+                onChange={(e) => setQty(e.target.value)}
+              />
+              <button
+                onClick={() => addMedicien()}
+                type="button"
+                className="btn w-[15%] bg-gray-300 text-xl "
+              >
+                +
+              </button>
+            </div>
+            <div className=" flex w-full flex-wrap items-center gap-1">
+              {mediciens.map((medicien) => {
+                return (
+                  <span className="rounded-full bg-slate-300 px-2 py-1">
+                    {medicien.name}
+                  </span>
+                );
+              })}
+            </div>
           </div>
           <div className="flex flex-col items-start justify-center gap-1">
             <label htmlFor="mobile">Causes:</label>
