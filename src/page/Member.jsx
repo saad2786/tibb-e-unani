@@ -15,7 +15,6 @@ const Member = () => {
         ...data,
       });
       console.log({ ...data, gender });
-
       if (!response.error) {
         toast.success("Added record");
         navigate("/records");
@@ -27,8 +26,8 @@ const Member = () => {
     }
   }
   return (
-    <div className="mt-16 flex flex-col items-center justify-center px-6 py-8 font-outfit">
-      <h2 className=" text-center text-2xl">Add New Patient</h2>
+    <div className="mt-4 flex flex-col items-center justify-center px-6 py-8 font-outfit">
+      {/* <h2 className=" text-center text-2xl">Add New Patient</h2> */}
       <form
         className="mt-4 w-full space-y-4 py-4"
         onSubmit={handleSubmit(onSubmit)}
@@ -63,9 +62,33 @@ const Member = () => {
             {...register("age", { min: 1, max: 110 })}
           />
         </div>
+        <div className="flex items-start justify-center gap-2">
+          <div className="flex flex-col items-start justify-center gap-1">
+            <label htmlFor="mobile">Mizaj-e-Tabee:</label>
+            <input
+              type="text"
+              placeholder="Mizaj-e-tabee"
+              className="w-full rounded-xl border border-slate-500 p-3"
+              id="mizajT"
+              {...register("mizajT")}
+            />
+          </div>
+          <div className="flex flex-col items-start justify-center gap-1">
+            <label htmlFor="mobile">Mizaj-e-Gair-Tabee:</label>
+            <input
+              type="text"
+              placeholder="Mizaj-e-gair-tabee"
+              className="w-full rounded-xl border border-slate-500 p-3"
+              id="mizajG"
+              {...register("mizajG")}
+            />
+          </div>
+        </div>
         <div className=" flex flex-col items-start justify-center gap-1 ">
           <div className="relative mt-4 flex w-full items-center justify-start gap-4 rounded-xl border border-slate-500 px-3 py-2">
-            <span className="absolute -top-3 left-3 bg-white px-2">Gender</span>
+            <span className="absolute -top-3 left-3 bg-stone-50 px-2">
+              Gender
+            </span>
             <div className="flex items-center justify-center gap-2 p-2">
               <input
                 type="radio"
@@ -90,7 +113,9 @@ const Member = () => {
         </div>
         <div className=" flex flex-col items-start justify-center gap-1 ">
           <div className="relative mt-4 flex w-full items-center justify-start gap-4 rounded-xl border border-slate-500 px-3 py-2">
-            <span className="absolute -top-3 left-3 bg-white px-2">Health</span>
+            <span className="absolute -top-3 left-3 bg-stone-50 px-2">
+              Health
+            </span>
             <div className="flex items-center justify-center gap-2 p-2">
               <input
                 type="checkbox"

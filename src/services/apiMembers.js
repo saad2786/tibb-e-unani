@@ -27,6 +27,8 @@ export async function addMember({
   age,
   diabeties,
   bp,
+  mizajT,
+  mizajG,
 }) {
   try {
     const { data: members, error } = await supabase
@@ -40,6 +42,8 @@ export async function addMember({
           age: age,
           diabeties: diabeties,
           bp: bp,
+          mizajG: mizajG,
+          mizajT: mizajT,
         },
       ])
       .select();
