@@ -147,6 +147,7 @@ const Member = () => {
             className="w-full rounded-xl border border-slate-500 p-3"
             id="address"
             {...register("address")}
+            required
           />
         </div>
         <div className="flex  items-start justify-center gap-4 pt-4">

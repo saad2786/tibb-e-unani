@@ -89,11 +89,11 @@ const Records = () => {
         <div className="flex items-center justify-center">
           <div className="flex-1 px-2 py-1">
             <p className="text-sm font-light">Mizaj Tabee:</p>
-            <p className="text-lg font-semibold"> {member.mizajT}</p>
+            <p className="text-lg font-semibold"> {member.mizajT || "-"}</p>
           </div>
           <div className="flex-1 px-2 py-1">
             <p className="text-sm font-light">Mizaj Gair Tabee:</p>
-            <p className="text-lg font-semibold">{member.mizajG}</p>
+            <p className="text-lg font-semibold">{member.mizajG || "-"}</p>
           </div>
         </div>
         <div className="px-2 py-1">
