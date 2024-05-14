@@ -63,7 +63,7 @@ const Record = () => {
                 <p className="text-xl font-semibold">{member.patientName}</p>
                 <p className="text-sm">{member.address}</p>
               </div>
-              <p className="w-fit text-lg font-semibold">
+              <p className="w-fit text-base font-semibold">
                 {member.age} Year Old
               </p>
             </div>
