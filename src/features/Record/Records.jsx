@@ -9,6 +9,7 @@ import Loader from "../../ui/Loader";
 import { fetchRecords } from "../../services/apiRecords";
 import Spinner from "../../ui/Spinner";
 import RecordCards from "../../ui/RecordCards";
+import { useTransition } from "react-spring"; // Importing React Spring
 
 const Records = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -57,6 +58,17 @@ const Records = () => {
     setIsOpenModal(false);
   };
 
+  const transition = useTransition(isOpenModal, {
+    from: {
+      scale: 0,
+      opacity: 0,
+    },
+    enter: {
+      scale: 1,
+      opacity: 1,
+    },
+  });
+
   if (error) return <Error />;
   if (isLoading || isRecordsLoading) return <Loader />;
   return (
@@ -82,7 +94,7 @@ const Records = () => {
           <div className="flex-1 px-2 py-1">
             <p className="text-sm font-light">Gender:</p>
             <p className="text-lg font-semibold">
-              {member?.age ? "Female" : "Male"}
+              {member?.gender ? "Male" : "Female"}
             </p>
           </div>
         </div>
@@ -125,9 +137,18 @@ const Records = () => {
         </button>
       </div>
       {isRefetching ? <Spinner /> : <RecordCards records={selectedRecords} />}
-      {isOpenModal && (
-        <EntryModal closeModal={closeModal} member={member} refetch={refetch} />
-      )}
+      {transition((style, isOpen) => (
+        <>
+          {isOpenModal ? (
+            <EntryModal
+              closeModal={closeModal}
+              member={member}
+              refetch={refetch}
+              style={style}
+            />
+          ) : null}
+        </>
+      ))}
     </div>
   );
 };

@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
 import { addRecord } from "../services/apiRecords";
+import { animated } from "react-spring";
 
-const EntryModal = ({ closeModal, member, refetch }) => {
+const EntryModal = ({ closeModal, member, refetch, style }) => {
   const [progress, setProgress] = useState(false);
   const [mediciens, setMediciens] = useState([]);
   const [medicien, setMedicien] = useState("");
@@ -44,8 +45,11 @@ const EntryModal = ({ closeModal, member, refetch }) => {
     }
   }
   return (
-    <div className="modal modal-open">
-      <div className="modal-box relative  mt-16 flex flex-col items-center justify-center px-6  py-8 font-outfit">
+    <div className="modal modal-open ">
+      <animated.div
+        style={style}
+        className="modal-box relative  mt-16 flex flex-col items-center justify-center px-6  py-8 font-outfit"
+      >
         <button
           className="absolute right-3 top-3 rounded-full p-2 hover:bg-slate-200"
           onClick={closeModal}
@@ -160,7 +164,7 @@ const EntryModal = ({ closeModal, member, refetch }) => {
             </button>
           </div>
         </form>
-      </div>
+      </animated.div>
     </div>
   );
 };

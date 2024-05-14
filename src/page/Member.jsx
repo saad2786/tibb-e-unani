@@ -13,6 +13,7 @@ const Member = () => {
     try {
       const response = await addMember({
         ...data,
+        gender,
       });
       console.log({ ...data, gender });
       if (!response.error) {

@@ -9,7 +9,13 @@ import Entry from "./page/Entry";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Toaster } from "react-hot-toast";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000,
+    },
+  },
+});
 
 const App = () => {
   return (
