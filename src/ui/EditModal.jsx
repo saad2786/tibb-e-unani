@@ -85,18 +85,18 @@ const EditModal = ({ closeModal, member, refetch, style }) => {
               <input
                 type="text"
                 placeholder="Mizaj-e-tabee"
-                className="w-full rounded-xl border border-slate-500 p-3"
+                className="w-[95%] rounded-xl border border-slate-500 p-3"
                 defaultValue={member?.mizajT}
                 id="mizajT"
                 {...register("mizajT")}
               />
             </div>
             <div className="flex flex-col items-start justify-center gap-1">
-              <label htmlFor="mobile">Mizaj-e-Gair-Tabee:</label>
+              <label htmlFor="mobile">Mizaj-e-Gair:</label>
               <input
                 type="text"
                 placeholder="Mizaj-e-gair-tabee"
-                className="w-full rounded-xl border border-slate-500 p-3"
+                className="w-[95%] rounded-xl border border-slate-500 p-3"
                 defaultValue={member?.mizajG}
                 id="mizajG"
                 {...register("mizajG")}
