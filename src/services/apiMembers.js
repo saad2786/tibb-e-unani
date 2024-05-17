@@ -53,3 +53,38 @@ export async function addMember({
     return error.message;
   }
 }
+
+export async function updateMember({
+  mid,
+  patientName,
+  mobile,
+  address,
+  gender,
+  age,
+  diabeties,
+  bp,
+  mizajT,
+  mizajG,
+}) {
+  try {
+    const { data: members, error } = await supabase
+      .from("members")
+      .update({
+        patientName: `${patientName}`,
+        mobile: `${mobile}`,
+        address: `${address}`,
+        gender: gender,
+        age: age,
+        diabeties: diabeties,
+        bp: bp,
+        mizajG: mizajG,
+        mizajT: mizajT,
+      })
+      .eq("mid", mid)
+      .select();
+
+    return { members, error };
+  } catch (error) {
+    return error.message;
+  }
+}
