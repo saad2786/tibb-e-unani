@@ -7,6 +7,7 @@ export default {
       fedrick: ['"Fredericka the Great", serif'],
       gotu: ['"Gotu", sans-serif'],
       outfit: ['"Outfit", sans-serif'],
+      urdu: ['"Reem Kufi", sans-serif'],
     },
   },
   plugins: [require("daisyui")],

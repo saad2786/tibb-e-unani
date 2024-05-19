@@ -7,11 +7,11 @@ function Home() {
     <div className="h-screen w-screen ">
       <div className="relative h-full w-full">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-        <div className="font-fedrick flex h-full w-full scroll-pt-2 flex-col items-center justify-center">
+        <div className="font-urdu flex h-full w-full scroll-pt-2 flex-col items-center justify-center">
           <h2 className="text-center text-5xl font-[500] leading-normal text-teal-800 ">
-            Satya Ayurvedic & Unani
+            طب یونانی
           </h2>
-          <div className="font-outfit z-40 mt-4 flex items-center space-x-4">
+          <div className="z-40 mt-4 flex items-center space-x-4 font-outfit">
             <Link to="members">
               <button className="flex  items-center justify-center gap-2 rounded-3xl bg-gradient-to-l from-green-500 to-green-700 px-4 py-3 text-white hover:bg-opacity-70">
                 <IoAdd fontWeight={900} size={20} />
