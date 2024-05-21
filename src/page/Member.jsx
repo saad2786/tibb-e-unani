@@ -63,26 +63,45 @@ const Member = () => {
             {...register("age", { min: 1, max: 110 })}
           />
         </div>
-        <div className="flex items-start justify-center gap-2">
-          <div className="flex flex-col items-start justify-center gap-1">
+        <div className="flex w-full items-start justify-center gap-2">
+          <div className="flex w-1/2 flex-col items-start justify-center gap-1">
             <label htmlFor="mobile">Mizaj-e-Tabee:</label>
-            <input
+            <select
               type="text"
               placeholder="Mizaj-e-tabee"
               className="w-full rounded-xl border border-slate-500 p-3"
               id="mizajT"
               {...register("mizajT")}
-            />
+            >
+              <option defaultChecked hidden>
+                --Select--
+              </option>
+              <option value="Safravi">Safravi</option>
+              <option value="Savdavi">Savdavi</option>
+              <option value="Balgami">Balgami</option>
+              <option value="Damavi">Damavi</option>
+            </select>
           </div>
-          <div className="flex flex-col items-start justify-center gap-1">
+          <div
+            className="flex
+          w-1/2 flex-col items-start justify-center gap-1"
+          >
             <label htmlFor="mobile">Mizaj-e-Gair-Tabee:</label>
-            <input
+            <select
               type="text"
               placeholder="Mizaj-e-gair-tabee"
               className="w-full rounded-xl border border-slate-500 p-3"
               id="mizajG"
               {...register("mizajG")}
-            />
+            >
+              <option defaultChecked hidden>
+                --Select--
+              </option>
+              <option value="Safravi">Safravi</option>
+              <option value="Savdavi">Savdavi</option>
+              <option value="Balgami">Balgami</option>
+              <option value="Damavi">Damavi</option>
+            </select>
           </div>
         </div>
         <div className=" flex flex-col items-start justify-center gap-1 ">

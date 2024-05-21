@@ -53,3 +53,56 @@ export async function addRecord({ cause, mediciens, growth, payment, mid }) {
     return error.message;
   }
 }
+
+export async function updateRecord({ cause, mediciens, growth, payment, rid }) {
+  try {
+    // Update the records table
+    const { data: record, error: recordError } = await supabase
+      .from("records")
+      .update({
+        cause,
+        desc: "",
+        growth,
+        payment,
+      })
+      .eq("rid", rid)
+      .select()
+      .single();
+
+    if (recordError) {
+      throw new Error(`Error updating record: ${recordError.message}`);
+    }
+
+    // Update the mediciens table
+    // Assuming you want to delete old mediciens and insert new ones
+    const { error: deleteError } = await supabase
+      .from("mediciens")
+      .delete()
+      .eq("rid", rid);
+
+    if (deleteError) {
+      throw new Error(`Error deleting old mediciens: ${deleteError.message}`);
+    }
+
+    const medicienData = mediciens.map((medicien) => ({
+      name: medicien.name,
+      qty: medicien.qty,
+      rid,
+    }));
+
+    const { data: medicien, error: medicienError } = await supabase
+      .from("mediciens")
+      .insert(medicienData)
+      .select();
+
+    if (medicienError) {
+      throw new Error(
+        `Error inserting new mediciens: ${medicienError.message}`,
+      );
+    }
+
+    return { record, medicien, error: null };
+  } catch (error) {
+    return { record: null, medicien: null, error: error.message };
+  }
+}

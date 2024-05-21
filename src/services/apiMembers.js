@@ -42,8 +42,8 @@ export async function addMember({
           age: age,
           diabeties: diabeties,
           bp: bp,
-          mizajG: `${mizajG}`,
-          mizajT: `${mizajT}`,
+          mizajG: mizajG,
+          mizajT: mizajT,
         },
       ])
       .select();

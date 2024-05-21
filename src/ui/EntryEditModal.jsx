@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { IoCloseSharp } from "react-icons/io5";
-import { addRecord } from "../services/apiRecords";
+import { updateRecord } from "../services/apiRecords";
 import { animated } from "react-spring";
 
-const EntryModal = ({ closeModal, member, refetch, style }) => {
-  const [progress, setProgress] = useState(false);
-  const [mediciens, setMediciens] = useState([]);
+const EntryEditModal = ({
+  closeModal,
+  entry,
+  refetch,
+  style,
+  mediciens: prevMediciens,
+}) => {
+  const [progress, setProgress] = useState(entry?.progress);
+  const [mediciens, setMediciens] = useState(prevMediciens);
   const [medicien, setMedicien] = useState("");
   const [qty, setQty] = useState("");
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -22,13 +30,12 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
   }, []);
 
   const { register, handleSubmit } = useForm();
-  const mid = member.mid;
 
   function addMedicien() {
     setMediciens((prev) => {
       const newMedicien = {
         name: medicien,
-        quantity: qty,
+        qty: qty,
       };
       return [...prev, newMedicien];
     });
@@ -38,10 +45,10 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
 
   async function onSubmit(data) {
     try {
-      const response = await addRecord({
+      const response = await updateRecord({
         ...data,
         growth: progress,
-        mid,
+        rid: entry.id,
         mediciens,
       });
 
@@ -73,7 +80,7 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
         >
           <IoCloseSharp size={20} />
         </button>
-        <h2 className="mb-4 text-center text-2xl">Add New Entry</h2>
+        <h2 className="mb-4 text-center text-2xl">Update Entry</h2>
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="font-medium">
@@ -108,10 +115,12 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
                   key={index}
                   className="flex items-center gap-1 rounded-full bg-slate-300 px-2 py-1"
                 >
-                  {medicien.name}{" "}
+                  {medicien.name.length > 10
+                    ? medicien.name.substring(0, 10) + "..."
+                    : medicien.name}
                   <IoCloseSharp
                     onClick={() => handleRemoveMedicien(medicien.name)}
-                  />
+                  />{" "}
                 </span>
               ))}
             </div>
@@ -125,6 +134,7 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
               placeholder="Causes"
               className="w-full rounded-xl border border-slate-500 p-3"
               id="cause"
+              defaultValue={entry?.cause}
               {...register("cause")}
               required
             />
@@ -164,6 +174,7 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
               type="text"
               placeholder="Enter Amount"
               className="w-full rounded-xl border border-slate-500 p-3"
+              defaultValue={entry?.payment}
               id="payment"
               {...register("payment")}
               required
@@ -176,6 +187,7 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
             <input
               type="text"
               className="w-full rounded-xl border border-slate-500 p-3"
+              defaultValue={entry?.desc}
               id="desc"
               {...register("desc")}
             />
@@ -185,7 +197,7 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
               type="submit"
               className="btn w-1/3 rounded-xl bg-green-600 py-2 text-white"
             >
-              Add
+              Update
             </button>
             <button
               className="btn w-1/3 rounded-xl bg-rose-600 py-2 text-white"
@@ -200,4 +212,4 @@ const EntryModal = ({ closeModal, member, refetch, style }) => {
   );
 };
 
-export default EntryModal;
+export default EntryEditModal;
